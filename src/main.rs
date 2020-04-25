@@ -17,9 +17,9 @@ fn main() {
         if b & 0x80 == 0 {
             // ASCII
             println!(
-                "{} [{:08b}] \"{}\" (1 byte)",
+                "{} {} {}",
                 "├".bright_black(),
-                b,
+                format!("{:08b}", b).cyan(),
                 std::str::from_utf8(&[b])
                     .unwrap()
                     .replace("\x0a", "↵")
@@ -27,11 +27,13 @@ fn main() {
             );
         } else {
             let nb = (!b).leading_zeros();
+            let bin_str = format!("{:08b}", b);
+            let (first_bin, second_bin) = bin_str.split_at(nb as usize + 1);
             println!(
-                "{} {:08b} ({:06b})",
+                "{} {}{}",
                 "├┬".bright_black(),
-                b,
-                b & (u8::pow(2, 7 - nb) - 1)
+                first_bin.magenta(),
+                second_bin.green()
             );
             let mut v: Vec<u8> = Vec::new();
             let mut f: u32 = 0;
@@ -44,20 +46,23 @@ fn main() {
                     println!("Illegal byte");
                     process::exit(1);
                 }
+                let bin_str = format!("{:08b}", next_byte);
+                let (first_bin, second_bin) = bin_str.split_at(2);
                 println!(
-                    "{} {:08b} ({:06b})",
+                    "{} {}{}",
                     "│├".bright_black(),
-                    next_byte,
-                    next_byte & 0x3f
+                    first_bin,
+                    second_bin.green()
                 );
                 f |= (next_byte as u32 & 0x3f) << base - (i + 1) * 6;
                 v.push(next_byte);
             }
             println!(
-                "{} [U+{:x}] \"{}\" ({} bytes) - {}",
+                "{}   {} {} (U+{:x} - {} bytes) {}",
                 "│└".bright_black(),
-                f,
+                format!("{:0b}", f).cyan(),
                 std::str::from_utf8(&v[..]).unwrap().bold(),
+                f,
                 nb,
                 format!("https://www.compart.com/en/unicode/U+{:x}", f).bright_black()
             );
