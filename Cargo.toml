@@ -3,6 +3,9 @@ name = "binyl"
 version = "0.1.0"
 authors = ["Yasuaki Uechi <y@uechi.io>"]
 edition = "2018"
+license = "Apache-2.0"
+license-file = "LICENSE"
+repository = "https://github.com/uetchy/binyl"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
