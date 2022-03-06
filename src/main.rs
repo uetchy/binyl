@@ -4,10 +4,9 @@ use std::process;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-
-    parse_string(match args.get(1) {
+    let content = match args.get(1) {
         // read from file
-        Some(filename) => std::fs::read_to_string(filename).unwrap(),
+        Some(filename) => std::fs::read_to_string(&filename).unwrap(),
 
         // read from stdin
         None => {
@@ -15,10 +14,12 @@ fn main() {
             std::io::stdin().read_line(&mut line).unwrap();
             line
         }
-    })
+    };
+
+    parse_string(&content)
 }
 
-fn parse_string(content: String) {
+fn parse_string(content: &str) {
     let mut bytes = content.bytes();
 
     while let Some(b) = bytes.next() {
