@@ -10,4 +10,5 @@ repository = "https://github.com/uetchy/binyl"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+anyhow = "1.0.51"
 colored = "2.0.0"

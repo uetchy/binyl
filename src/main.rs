@@ -1,12 +1,13 @@
+use anyhow::{anyhow, Context, Result};
 use colored::*;
 use std::env;
-use std::process;
 
-fn main() {
+fn main() -> Result<()> {
     let args: Vec<String> = env::args().collect();
     let content = match args.get(1) {
         // read from file
-        Some(filename) => std::fs::read_to_string(&filename).unwrap(),
+        Some(filename) => std::fs::read_to_string(&filename)
+            .with_context(|| format!("could not read file `{}`", filename))?,
 
         // read from stdin
         None => {
@@ -19,7 +20,7 @@ fn main() {
     parse_string(&content)
 }
 
-fn parse_string(content: &str) {
+fn parse_string(content: &str) -> Result<()> {
     let mut bytes = content.bytes();
 
     while let Some(b) = bytes.next() {
@@ -60,8 +61,7 @@ fn parse_string(content: &str) {
 
                 // if first 2 MSB are not '10', it's illegal sequence.
                 if next_byte & 0xC0 != 0x80 {
-                    println!("Illegal byte");
-                    process::exit(1);
+                    return Err(anyhow!("Illegal byte"));
                 }
 
                 let (first, last) = split_octet(next_byte, 2);
@@ -87,6 +87,8 @@ fn parse_string(content: &str) {
             );
         }
     }
+
+    Ok(())
 }
 
 fn split_octet(octet: u8, separate_at: u32) -> (u8, u8) {
