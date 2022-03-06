@@ -1,17 +1,22 @@
 # binyl
 
-A bitwise UTF-8 inspection tool written in Rust.
+A bitwise UTF-8 string inspection tool written in Rust.
 
 ![Screenshot](https://github.com/uetchy/binyl/blob/master/.github/ss.png?raw=true)
 
 ## Installation
 
-```
+```bash
 cargo install binyl
 ```
 
 ## Usage
 
-```
-binyl <file to inspect>
+```bash
+binyl <file/to/inspect>
+
+# or
+
+echo わたしはネコ🐈 | binyl
+cat some.file | binyl
 ```

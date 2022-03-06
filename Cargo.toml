@@ -1,14 +1,13 @@
 [package]
 name = "binyl"
-description = "A bitwise UTF-8 inspection tool"
+description = "A bitwise UTF-8 string inspection tool"
 version = "0.1.0"
 authors = ["Yasuaki Uechi <y@uechi.io>"]
-edition = "2018"
-license = "Apache-2.0"
+edition = "2021"
 license-file = "LICENSE"
 repository = "https://github.com/uetchy/binyl"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-colored = "1.9.3"
+colored = "2.0.0"
