@@ -12,7 +12,7 @@ fn main() -> Result<()> {
         // read from stdin
         None => {
             let mut line = String::new();
-            std::io::stdin().read_line(&mut line).unwrap();
+            std::io::stdin().read_line(&mut line)?;
             line
         }
     };
@@ -25,17 +25,17 @@ fn parse_string(content: &str) -> Result<()> {
 
     while let Some(b) = bytes.next() {
         if b & 0x80 == 0 {
-            // if MSB is 0, is is ASCII.
+            // if MSB is 0, is is just ASCII.
             println!(
-                "{} {} {} (U+{:04X})",
+                "{} {} {} (U+{:04X} ASCII={})",
                 "├".bright_black(),
                 format!("{:08b}", b).cyan(),
-                std::str::from_utf8(&[b])
-                    .unwrap()
+                std::str::from_utf8(&[b])?
                     .replace("\x0a", "↵")
                     .replace("\x20", "<space>")
                     .bold(),
-                b
+                b,
+                b,
             );
         } else {
             let nb = (!b).leading_zeros();
