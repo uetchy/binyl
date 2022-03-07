@@ -1,7 +1,7 @@
 [package]
 name = "binyl"
 description = "A bitwise UTF-8 string inspection tool"
-version = "0.1.0"
+version = "1.0.0"
 authors = ["Yasuaki Uechi <y@uechi.io>"]
 edition = "2021"
 license-file = "LICENSE"
